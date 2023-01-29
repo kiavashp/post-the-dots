@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react';
 import api from './api';
 import {rankPlayers} from './util';
 
-import Header from './Header';
 import Documentation from './Documentation';
 import Game from './Game';
 import Scoreboard from './Scoreboard';
@@ -43,7 +42,6 @@ const App = () => {
     }, [joined]);
 
     return (<>
-        <Header/>
         <main>
             <Documentation/>
             <Game me={me} board={board} reload={reload} joined={joined} setJoined={setJoined} joinGame={joinGame}/>
