@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Color from 'color';
+
+import Header from './Header';
 import Join from './Join';
+import Player from './Player';
 import Loading from './Loading';
 
 const Game = ({me, board, joined, setJoined, joinGame}) => {
@@ -14,17 +17,13 @@ const Game = ({me, board, joined, setJoined, joinGame}) => {
 
     return (
         <section className="game">
+            <Header/>
+
             {joined && me
-                ? <div className="player">
-                    <div className={`score player-dot ${new Color(me.color).isLight() ? 'light': 'dark'}`}
-                        style={{backgroundColor: me.color}}>
-                        {me.score}
-                    </div>
-                    <span className="username">{me.username}</span>
-                    {me.position ? <span className="position">#{me.position}</span> : null}
-                </div>
+                ? <Player player={me}/>
                 : <Join setJoined={setJoined} joinGame={joinGame}/>
             }
+
             <div className="board">
                 <div className="row">
                     <div className="axis-header"></div>

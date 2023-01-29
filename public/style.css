@@ -33,7 +33,7 @@ button {
 #app {
     box-sizing: border-box;
     display: grid;
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-rows: 1fr min-content;
     gap: 16px;
     width: 100vw;
     min-height: 100vh;
@@ -46,7 +46,7 @@ header {
     text-align: center;
 }
 
-header > .title {
+header .title {
     display: inline-block;
     padding: 8px 16px;
     font-size: 28px;
@@ -189,7 +189,7 @@ aside.documentation {
 .documentation .routes {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 16px;
     overflow-y: auto;
 }
 
@@ -199,11 +199,37 @@ aside.documentation {
     gap: 8px;
 }
 
+.route.open {
+    padding-bottom: 16px;
+}
+
 pre.signature {
     color: #444;
     font-size: 16px;
     font-weight: bold;
     margin: 0;
+}
+
+pre.signature:before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    margin-right: 4px;
+}
+
+.route:not(.open) pre.signature:before {
+    border-width: 4px 0 4px 5px;
+    border-left-color: #444;
+    margin-left: 4px;
+}
+
+.route.open pre.signature:before {
+    border-width: 5px 4px 2px 4px;
+    border-top-color: #444;
+    margin-left: 1px;
 }
 
 i.description {
@@ -237,9 +263,13 @@ section.game {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 0 auto;
     gap: 5px;
+}
+
+section.game:after {
+    content: '';
 }
 
 .game .player {

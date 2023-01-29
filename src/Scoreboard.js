@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import Color from 'color';
 import api from './api';
+
+import Player from './Player';
 import Loading from './Loading';
 
 const Scoreboard = ({players}) => {
@@ -17,16 +18,9 @@ const Scoreboard = ({players}) => {
             <h3 className="section-title">Scoreboard</h3>
             <div className="players">
                 {players.map((player, p) => {
-                    return (
-                        <div key={p} className={`player ${playerUsername === player.username ? 'me' : ''}`} title={player.username}>
-                            <div className={`score player-dot ${new Color(player.color).isLight() ? 'light': 'dark'}`}
-                                style={{backgroundColor: player.color}}>
-                                {player.score}
-                            </div>
-                            <span className="username">{player.username}</span>
-                            {player.position ? <span className="position">#{player.position}</span> : null}
-                        </div>
-                    );
+                    return (<Player key={p}
+                        player={player}
+                        className={playerUsername === player.username ? 'me' : ''}/>);
                 })}
             </div>
         </aside>
