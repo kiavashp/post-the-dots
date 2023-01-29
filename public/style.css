@@ -1,0 +1,294 @@
+body {
+    margin: 0;
+    font-family: Menlo, monospace;
+    font-size: 16px;
+}
+
+input, select, button {
+    font: inherit;
+}
+
+#app {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    gap: 16px;
+    width: 100vw;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+header {
+    text-align: center;
+}
+
+header > .title {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 28px;
+    background: #eee;
+    color: #444;
+    border-radius: 6px;
+    margin: 0 auto;
+}
+
+main {
+    display: grid;
+    grid-template-columns: minmax(min-content, 38%) 1.5fr max(20%);
+    gap: 16px;
+}
+
+section:not(.game), aside {
+    background: #f5f5f5;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 16px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    height: inherit;
+    margin: 0 auto;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+
+.player.me {
+    background: #fff;
+    border-radius: 6px;
+}
+
+.player .player-dot {
+    flex-shrink: 0;
+}
+
+.player .username {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player .position {
+    color: #aaa;
+}
+
+.player-dot,
+.board .axis-header,
+.board .column {
+    flex-shrink: 1;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.player-dot,
+.board .column {
+    font-size: 12px;
+    border-radius: 50%;
+}
+
+.player-dot {
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+        inset -1px -3px rgba(0, 0, 0, 0.15),
+        1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.player-dot:before {
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: -2px;
+    display: block;
+    width: 16px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.player-dot.dark {
+    color: #ffffff;
+    box-shadow:
+        inset -1px -3px rgba(0, 0, 0, 0.3),
+        1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.player-dot.light {
+    color: #000000;
+    box-shadow:
+        inset -1px -3px rgba(0, 0, 0, 0.1),
+        1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* SECTIONS */
+
+/* join */
+
+
+/* documentation */
+
+aside.documentation {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.documentation .routes {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    overflow-y: auto;
+}
+
+.route {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+pre.signature {
+    color: #444;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+i.description {
+    color: #444;
+    font-size: 12px;
+}
+
+i.description:before {
+    content: '> '
+}
+
+.parameter {
+    color: #888;
+    font-size: 13px;
+}
+
+.parameter .name {
+    font-weight: bold;
+}
+
+.url-parameters .parameter .name:before {
+    content: ':';
+}
+
+.body-parameters .parameter .name:before {
+    content: 'body.';
+}
+
+/* board */
+section.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    gap: 5px;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 5px;
+}
+
+.board .row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+}
+
+.board .axis-header {
+    color: #ddd;
+}
+
+.board .column {
+    overflow: hidden;
+    background: #eee;
+}
+
+/* scoreboard */
+
+aside.scoreboard {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.scoreboard .players {
+    overflow-y: auto;
+}
+
+/* command */
+section.command {
+
+}
+
+.command-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 8px;
+}
+
+.command-error {
+    padding: 8px;
+    background: #ffdddd;
+    border-radius: 8px;
+    color: #cc2222;
+}
+
+.command-error.hide {
+    background: transparent;
+}
+
+.command-error:before {
+    content: '\00a0';
+}
+
+section.command form {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+input.command-input {
+    flex-grow: 1;
+    -webkit-appearance: none;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+}
+
+button.command-send {
+    -webkit-appearance: none;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: #bbb;
+}
