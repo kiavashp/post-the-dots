@@ -7,6 +7,10 @@ const api = require('./api');
 
 server.use(morgan('dev'));
 
+server.get('/health', (request, response, next) => {
+    response.status(200).send();
+});
+
 server.use('/api', api);
 
 server.use(express.static(path.join(__dirname, 'build')));
