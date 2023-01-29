@@ -51,7 +51,14 @@ const Command = ({reload}) => {
                 <div className={`command-error ${error ? '' : 'hide'}`}>{error}</div>
             </div>
             <form onSubmit={handleCommand}>
-                <input className="command-input" type="text" size="60" placeholder="METHOD /path/to/endpoint" value={command} onChange={event => setCommand(event.target.value)}/>
+                <input className="command-input"
+                    type="text"
+                    size="60"
+                    placeholder="METHOD /path/to/endpoint"
+                    value={command}
+                    onChange={event => setCommand(event.target.value)}
+                    required={true}
+                    autoComplete="off"/>
                 <button className="command-send">Send</button>
 
             </form>

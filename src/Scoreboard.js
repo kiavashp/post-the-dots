@@ -18,7 +18,7 @@ const Scoreboard = ({players}) => {
             <div className="players">
                 {players.map((player, p) => {
                     return (
-                        <div key={p} className={`player ${playerUsername === player.username ? 'me' : ''}`}>
+                        <div key={p} className={`player ${playerUsername === player.username ? 'me' : ''}`} title={player.username}>
                             <div className={`score player-dot ${new Color(player.color).isLight() ? 'light': 'dark'}`}
                                 style={{backgroundColor: player.color}}>
                                 {player.score}

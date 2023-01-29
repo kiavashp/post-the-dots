@@ -36,9 +36,15 @@ const Join = ({setJoined, joinGame}) => {
     };
 
     return (<section className="join">
-        <h3>Join Game</h3>
         <form onSubmit={handleJoin}>
-            <input type="text" placeholder="username" value={username} onChange={event => setUsername(event.target.value)}/>
+            <input
+                type="text"
+                placeholder="username"
+                value={username}
+                onChange={event => setUsername(event.target.value)}
+                required={true}
+                maxLength={16}
+                autoComplete="off"/>
             <button>Join</button>
         </form>
     </section>);
