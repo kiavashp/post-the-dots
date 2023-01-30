@@ -22,7 +22,7 @@ const GameOver = ({me, winners}) => {
 const GameState = ({me, active, activatedTime, winners}) => {
     return (<div className="game-state">
         {active
-            ? (me ? (Date.now() - activatedTime < 3e3 ? "Play!" : " ") : "Join to play!")
+            ? (me ? (Date.now() - activatedTime < 5e3 ? "Game Active: Send commands to play!" : " ") : "Game Active: Join to play!")
             : winners && winners.length
                 ? <GameOver me={me} winners={winners}/>
                 : "Game will start soon..."}

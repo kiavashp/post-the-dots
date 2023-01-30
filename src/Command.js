@@ -89,7 +89,7 @@ const Command = ({board, reload}) => {
     return (
         <section className="command">
             <div className="command-header">
-                <h3 className="section-title">Commands{isAdmin ? '(admin)' : ''}</h3>
+                <h3 className="section-title">Commands{isAdmin ? ' (admin)' : ''}</h3>
                 <div className={`command-error ${error ? '' : 'hide'}`}>{error}</div>
             </div>
             <form onSubmit={handleCommand}>
