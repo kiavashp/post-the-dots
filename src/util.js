@@ -1,3 +1,5 @@
+import Color from 'color';
+
 export const rankPlayers = players => {
     const ranked = players.sort((a, b) => b.score - a.score);
 
@@ -22,4 +24,8 @@ export const rankPlayers = players => {
     }
 
     return ranked;
+};
+
+export const colorClass = color => {
+    return new Color(color).isLight() ? 'light' : 'dark';
 };

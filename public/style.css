@@ -50,10 +50,8 @@ header {
 header .title {
     display: inline-block;
     padding: 8px 16px;
-    font-size: 28px;
-    background: #eee;
-    /* color: #444; */
-    color: lightcoral;
+    font-size: 20px;
+    color: #444;
     border-radius: 6px;
     margin: 0 auto;
 }
@@ -71,11 +69,20 @@ section:not(.game), aside {
     padding: 16px;
 }
 
+.light {
+    color: #222;
+}
+
+.dark {
+    color: #fff;
+}
+
 .section-title {
-    color: #bbb;
+    color: #888;
     font-size: 18px;
     font-weight: normal;
     margin: 0;
+    text-align: center;
 }
 
 .loading {
@@ -151,14 +158,12 @@ section:not(.game), aside {
 }
 
 .player-dot.dark {
-    color: #ffffff;
     box-shadow:
         inset -1px -3px rgba(0, 0, 0, 0.3),
         1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .player-dot.light {
-    color: #000000;
     box-shadow:
         inset -1px -3px rgba(0, 0, 0, 0.1),
         1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -188,7 +193,12 @@ section.join button {
 
 aside.documentation {
     display: flex;
+}
+
+aside.documentation .content {
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 16px;
 }
 
@@ -271,7 +281,7 @@ section.game {
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-    gap: 5px;
+    gap: 16px;
 }
 
 section.game:after {
@@ -284,9 +294,44 @@ section.game:after {
     border-radius: 6px;
 }
 
+.game-state {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: #444;
+    font-size: 15px;
+}
+
+.game-state.hide {
+    background: transparent;
+}
+
+.game-state:before {
+    content: '';
+    display: inline-block;
+    vertical-align: baseline;
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.game-state.active:before {
+    background-color: darkseagreen;
+}
+
+.game-state.pending:before {
+    background-color: #888;
+}
+
+.game-state.gameover:before {
+    content: none;
+    background-color: lightcoral;
+}
+
 .game-state .player-username {
+    display: inline-block;
     padding: 4px 8px;
-    background: #eee;
     border-radius: 4px;
     margin: 8px;
 }

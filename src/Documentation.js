@@ -47,16 +47,23 @@ const Route = ({method, path, description, params, body}) => {
 const Documentation = () => {
     return (
         <aside className="documentation">
-            <h3 className="section-title">Documentation</h3>
-            <div className="routes">
-                {ROUTES.map(({method, path, description, params, body}) => {
-                    return (<Route key={`${method}${path}`}
-                        method={method}
-                        path={path}
-                        description={description}
-                        params={params}
-                        body={body}/>);
-                })}
+            <div className="content">
+                <div className="routes">
+                    <h3 className="section-title">Routes</h3>
+                    {ROUTES.map(({method, path, description, params, body}) => {
+                        return (<Route key={`${method}${path}`}
+                            method={method}
+                            path={path}
+                            description={description}
+                            params={params}
+                            body={body}/>);
+                    })}
+                </div>
+                <div className="scoring">
+                    <h3 className="section-title">Scoring</h3>
+                    <p>+1 point per dot</p>
+                    <i><strong>Bonus:</strong> +1 extra point for every connected pair (horizontal or vertical)</i>
+                </div>
             </div>
         </aside>
     );

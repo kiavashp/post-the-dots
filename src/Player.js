@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Color from 'color';
+import {colorClass} from './util';
 
 const Player = ({player, className=''}) => {
     return (
         <div className={`player ${className}`} title={player.username}>
-            <div className={`score player-dot ${new Color(player.color).isLight() ? 'light': 'dark'}`}
+            <div className={`score player-dot ${colorClass(player.color)}`}
                 style={{backgroundColor: player.color}}>
                 {player.score}
             </div>

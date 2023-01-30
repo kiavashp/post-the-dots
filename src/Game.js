@@ -1,5 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import Color from 'color';
+
+import {colorClass} from './util';
 
 import Header from './Header';
 import Join from './Join';
@@ -12,7 +13,11 @@ const GameOver = ({me, winners}) => {
         {winners.map((p, i) =>
             <Fragment key={i}>
                 {i > 0 ? 'and' : ''}
-                <span key={i} className="player-username">{me.username === p.username ? 'You' : p.username}</span>
+                <span key={i}
+                    style={{backgroundColor: p.color}}
+                    className={`player-username ${colorClass(p.color)}`}>
+                    {me.username === p.username ? 'You' : p.username}
+                </span>
             </Fragment>
         )}
         {winners.length > 1 ? 'Tied!' : 'Won!'}
@@ -20,12 +25,59 @@ const GameOver = ({me, winners}) => {
 };
 
 const GameState = ({me, active, activatedTime, winners}) => {
-    return (<div className="game-state">
-        {active
-            ? (me ? (Date.now() - activatedTime < 5e3 ? "Game Active: Send commands to play!" : " ") : "Game Active: Join to play!")
-            : winners && winners.length
-                ? <GameOver me={me} winners={winners}/>
-                : "Game will start soon..."}
+    let gameStateClass = 'hide';
+    let gameStateContent = '\u00A0';
+
+    if (active) {
+        if (me) {
+            if (Date.now() - activatedTime < 5e3) {
+                gameStateClass = 'active joined';
+                gameStateContent = "Send commands to place dots!"
+            }
+        } else {
+            gameStateClass = 'active notjoined';
+            gameStateContent = "Game Active! Join below to play!";
+        }
+    } else if (winners && winners.length) {
+        gameStateClass = 'gameover';
+        gameStateContent = <GameOver me={me} winners={winners}/>;
+    } else {
+        gameStateClass = 'pending';
+        gameStateContent = "Game starting soon...";
+    }
+
+    return (<div className={`game-state ${gameStateClass}`}>
+        {gameStateContent}
+    </div>);
+};
+
+const Board = ({board}) => {
+    const {size, rows, winners} = board;
+
+    return (<div className="board">
+        <div className="row">
+            <div className="axis-header"></div>
+            {rows[0].map((_, c) => {
+                return (
+                    <div key={c} className="axis-header">{c}</div>
+                );
+            })}
+        </div>
+        {rows.map((row, r) => {
+            return (
+                <div key={r} className="row">
+                    <div className="axis-header">{String.fromCharCode(97 + r)}</div>
+                    {row.map((column, c) => {
+                        const {playedBy} = column;
+
+                        return (<div key={c}
+                            className={`column ${playedBy ? 'player-dot' : ''}`}
+                            style={playedBy ? {backgroundColor: playedBy.color} : {}}>
+                        </div>)
+                    })}
+                </div>
+            );
+        })}
     </div>);
 };
 
@@ -44,44 +96,14 @@ const Game = ({me, board, joined, setJoined, joinGame}) => {
         );
     }
 
-    const {size, rows, winners} = board;
-
     return (
         <section className="game">
             <Header/>
-
+            <GameState me={me} active={board.active} activatedTime={activatedTime} winners={board.winners}/>
+            <Board board={board}/>
             {joined && me
                 ? <Player player={me}/>
-                : <Join setJoined={setJoined} joinGame={joinGame}/>
-            }
-
-            <GameState me={me} active={board.active} activatedTime={activatedTime} winners={board.winners}/>
-
-            <div className="board">
-                <div className="row">
-                    <div className="axis-header"></div>
-                    {rows[0].map((_, c) => {
-                        return (
-                            <div key={c} className="axis-header">{c}</div>
-                        );
-                    })}
-                </div>
-                {rows.map((row, r) => {
-                    return (
-                        <div key={r} className="row">
-                            <div className="axis-header">{String.fromCharCode(97 + r)}</div>
-                            {row.map((column, c) => {
-                                const {playedBy} = column;
-
-                                return (<div key={c}
-                                    className={`column ${playedBy ? 'player-dot' : ''}`}
-                                    style={playedBy ? {backgroundColor: playedBy.color} : {}}>
-                                </div>)
-                            })}
-                        </div>
-                    );
-                })}
-            </div>
+                : <Join setJoined={setJoined} joinGame={joinGame}/>}
         </section>
     );
 };
