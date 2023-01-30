@@ -10,8 +10,10 @@ const wrap = (error, data) => {
     }
 };
 
-const requireGameActive = (request, response, next) => {
-    if (board.isGameOver()) {
+const requireAuthAndGameActive = (request, response, next) => {
+    if (!board.getPlayer(request.id)) {
+        response.status(403).send(wrap('Player not found'));
+    } else if (board.isGameOver()) {
         response.status(403).send(wrap('Game is over'));
     } else {
         next();
@@ -46,7 +48,7 @@ api.post('/players/join', (request, response, next) => {
 });
 
 // dots
-api.post('/dots/:coordinates', requireGameActive, (request, response, next) => {
+api.post('/dots/:coordinates', requireAuthAndGameActive, (request, response, next) => {
     const {ip} = request;
     const {coordinates} = request.params;
 
@@ -59,7 +61,7 @@ api.post('/dots/:coordinates', requireGameActive, (request, response, next) => {
     response.status(201).send(wrap(result.reason));
 });
 
-api.delete('/dots/:coordinates', requireGameActive, (request, response, next) => {
+api.delete('/dots/:coordinates', requireAuthAndGameActive, (request, response, next) => {
     const {ip} = request;
     const {coordinates} = request.params;
 
