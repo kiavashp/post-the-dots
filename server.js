@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const server = express();
 const api = require('./api');
 
-server.use(morgan('dev'));
+server.use(morgan('short'));
 
 server.get('/health', (request, response, next) => {
     response.status(200).send();
