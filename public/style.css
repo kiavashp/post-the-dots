@@ -166,11 +166,11 @@ section:not(.game), aside {
 .player-dot:before {
     content: '';
     position: absolute;
-    left: 0px;
-    top: -2px;
+    left: 6px;
+    top: 3px;
     display: block;
-    width: 16px;
-    height: 14px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
 }
