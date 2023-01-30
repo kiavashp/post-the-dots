@@ -36,8 +36,9 @@ button {
     grid-template-rows: 1fr min-content;
     gap: 16px;
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     max-width: 1200px;
+    max-height: 1000px;
     margin: 0 auto;
     padding: 16px;
 }
