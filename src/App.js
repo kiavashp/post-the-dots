@@ -47,7 +47,7 @@ const App = () => {
             <Game me={me} board={board} reload={reload} joined={joined} setJoined={setJoined} joinGame={joinGame}/>
             <Scoreboard players={players}/>
         </main>
-        {joined ? <Command reload={reload}/> : null}
+        {joined ? <Command board={board} reload={reload}/> : null}
     </>);
 };
 

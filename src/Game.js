@@ -1,10 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import Color from 'color';
 
 import Header from './Header';
 import Join from './Join';
 import Player from './Player';
 import Loading from './Loading';
+
+const GameOver = ({me, winners}) => {
+    return (<Fragment>
+        Game Over:
+        {winners.map((p, i) =>
+            <Fragment key={i}>
+                {i > 0 ? 'and' : ''}
+                <span key={i} className="player-username">{me.username === p.username ? 'You' : p.username}</span>
+            </Fragment>
+        )}
+        {winners.length > 1 ? 'Tied!' : 'Won!'}
+    </Fragment>);
+};
 
 const Game = ({me, board, joined, setJoined, joinGame}) => {
     if (!board) {
@@ -23,6 +36,12 @@ const Game = ({me, board, joined, setJoined, joinGame}) => {
                 ? <Player player={me}/>
                 : <Join setJoined={setJoined} joinGame={joinGame}/>
             }
+
+            <div className="notice">
+                {board.winners && board.winners.length
+                    ? <GameOver winners={board.winners} me={me}/>
+                    : null}
+            </div>
 
             <div className="board">
                 <div className="row">

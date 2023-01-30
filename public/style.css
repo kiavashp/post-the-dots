@@ -172,7 +172,12 @@ section.join {
     gap: 16px;
 }
 
+section.join input {
+    flex-grow: 1;
+}
+
 section.join button {
+    flex-grow: 1;
     background-color: cornflowerblue;
     color: #fff;
 }
@@ -276,6 +281,13 @@ section.game:after {
     background: #f5f5f5;
     padding: 8px 16px;
     border-radius: 6px;
+}
+
+.game .notice .player-username {
+    padding: 4px 8px;
+    background: #eee;
+    border-radius: 4px;
+    margin: 8px;
 }
 
 .board {

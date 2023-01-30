@@ -8,7 +8,7 @@ const HTTP_METHODS = {
     'DELETE': true
 };
 
-const Command = ({reload}) => {
+const Command = ({board, reload}) => {
     const [command, setCommand] = useState('');
     const [error, setError] = useState(null);
 
@@ -52,6 +52,7 @@ const Command = ({reload}) => {
             </div>
             <form onSubmit={handleCommand}>
                 <input className="command-input"
+                    disabled={board.winners && board.winners.length > 0}
                     type="text"
                     size="60"
                     placeholder="METHOD /path/to/endpoint"
@@ -59,7 +60,8 @@ const Command = ({reload}) => {
                     onChange={event => setCommand(event.target.value)}
                     required={true}
                     autoComplete="off"/>
-                <button className="command-send">Send</button>
+                <button className="command-send"
+                    disabled={board.winners && board.winners.length > 0}>Send</button>
 
             </form>
         </section>

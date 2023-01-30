@@ -43,6 +43,7 @@ const Join = ({setJoined, joinGame}) => {
                 value={username}
                 onChange={event => setUsername(event.target.value)}
                 required={true}
+                size={16}
                 maxLength={16}
                 autoComplete="off"/>
             <button>Join</button>
