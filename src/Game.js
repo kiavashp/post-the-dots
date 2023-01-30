@@ -10,7 +10,9 @@ import Loading from './Loading';
 const GameOver = ({me, winners}) => {
     return (<Fragment>
         Game Over:
-        {winners.map((p, i) =>
+        {winners
+            .sort((a, b) => (b.username === me.username) - (a.username === me.username))
+            .map((p, i) =>
             <Fragment key={i}>
                 {i > 0 ? 'and' : ''}
                 <span key={i}
