@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const server = express();
 const api = require('./api');
 
+server.enable('trust proxy');
+
 server.use(morgan('short'));
 
 server.get('/health', (request, response, next) => {
