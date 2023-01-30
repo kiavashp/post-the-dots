@@ -19,7 +19,25 @@ const GameOver = ({me, winners}) => {
     </Fragment>);
 };
 
+const GameState = ({me, active, activatedTime, winners}) => {
+    return (<div className="game-state">
+        {active
+            ? (me ? (Date.now() - activatedTime < 3e3 ? "Play!" : " ") : "Join to play!")
+            : winners && winners.length
+                ? <GameOver me={me} winners={winners}/>
+                : "Game will start soon..."}
+    </div>);
+};
+
 const Game = ({me, board, joined, setJoined, joinGame}) => {
+    const [activatedTime, setActivatedTime] = useState(0);
+
+    useEffect(() => {
+        if (board && board.active) {
+            setActivatedTime(Date.now());
+        }
+    }, [board && board.active]);
+
     if (!board) {
         return (
             <Loading/>
@@ -37,11 +55,7 @@ const Game = ({me, board, joined, setJoined, joinGame}) => {
                 : <Join setJoined={setJoined} joinGame={joinGame}/>
             }
 
-            <div className="notice">
-                {board.winners && board.winners.length
-                    ? <GameOver winners={board.winners} me={me}/>
-                    : null}
-            </div>
+            <GameState me={me} active={board.active} activatedTime={activatedTime} winners={board.winners}/>
 
             <div className="board">
                 <div className="row">

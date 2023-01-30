@@ -17,8 +17,6 @@ const App = () => {
     const me = players.find(player => player.username === api.getUsername());
 
     const reload = async () => {
-        console.log('reload()');
-
         const {payload: {board, players}} = await api.getGameState();
 
         setLoaded(true);
@@ -47,7 +45,7 @@ const App = () => {
             <Game me={me} board={board} reload={reload} joined={joined} setJoined={setJoined} joinGame={joinGame}/>
             <Scoreboard players={players}/>
         </main>
-        {joined ? <Command board={board} reload={reload}/> : null}
+        {joined || api.isAdmin() ? <Command board={board} reload={reload}/> : null}
     </>);
 };
 

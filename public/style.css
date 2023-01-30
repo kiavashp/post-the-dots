@@ -283,7 +283,7 @@ section.game:after {
     border-radius: 6px;
 }
 
-.game .notice .player-username {
+.game-state .player-username {
     padding: 4px 8px;
     background: #eee;
     border-radius: 4px;

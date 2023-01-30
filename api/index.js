@@ -11,10 +11,10 @@ const wrap = (error, data) => {
 };
 
 const requireAuthAndGameActive = (request, response, next) => {
-    if (!board.getPlayer(request.id)) {
+    if (!board.getPlayer(request.ip)) {
         response.status(403).send(wrap('Player not found'));
-    } else if (board.isGameOver()) {
-        response.status(403).send(wrap('Game is over'));
+    } else if (!board.isActive()) {
+        response.status(403).send(wrap(board.isGameOver() ? 'Game is over': 'Game has not started yet'));
     } else {
         next();
     }
@@ -76,11 +76,20 @@ api.delete('/dots/:coordinates', requireAuthAndGameActive, (request, response, n
 
 // admin
 api.post('/admin/newgame', (request, response, next) => {
-    if (request.body["I'M THE ADMIN NOW."] === true) {
+    if (request.header('Authorization') === "I'M THE ADMIN NOW.") {
         board.newGame();
         response.status(201).send(wrap());
     } else {
         response.status(403).send(wrap('Must be an admin to start a new game'));
+    }
+});
+
+api.post('/admin/start', (request, response, next) => {
+    if (request.header('Authorization') === "I'M THE ADMIN NOW.") {
+        board.start();
+        response.status(201).send(wrap());
+    } else {
+        response.status(403).send(wrap('Must be an admin to start game'));
     }
 });
 

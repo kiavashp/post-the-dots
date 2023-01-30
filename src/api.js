@@ -1,21 +1,26 @@
-const LOCAL_STORAGE_KEY = 'ptd_username';
+const LOCAL_STORAGE_USERNAME = 'ptd_username';
+const LOCAL_STORAGE_ISADMIN = 'ptd_isadmin';
 
 class API {
     constructor() {
-        this.username = localStorage.getItem(LOCAL_STORAGE_KEY) || null;
+        this.username = localStorage.getItem(LOCAL_STORAGE_USERNAME) || null;
     }
 
     setUsername(username) {
         this.username = username;
-        localStorage.setItem(LOCAL_STORAGE_KEY, username);
+        localStorage.setItem(LOCAL_STORAGE_USERNAME, username);
     }
 
     getUsername() {
         return this.username;
     }
 
+    isAdmin() {
+        return localStorage.getItem(LOCAL_STORAGE_ISADMIN) === 'true';
+    }
+
     async me() {
-        const result = await this.makeCall('GET', `/players/me`);
+        const result = await this.makeCall('GET', `/api/players/me`);
 
         if (result.payload) {
             this.setUsername(result.payload.username);
@@ -25,7 +30,7 @@ class API {
     }
 
     async join(username) {
-        const result = await this.makeCall('POST', '/players/join', {
+        const result = await this.makeCall('POST', '/api/players/join', {
             body: {
                 username: username
             }
@@ -61,8 +66,12 @@ class API {
             }
         }
 
+        if (this.isAdmin()) {
+            options.headers['Authorization'] = 'I\'M THE ADMIN NOW.';
+        }
+
         try {
-            const response = await fetch(`/api${path}`, options);
+            const response = await fetch(path, options);
             const payload = await response.json();
 
             return {
@@ -84,7 +93,7 @@ class API {
     }
 
     async getGameState() {
-        return await this.makeCall('GET', '/game');
+        return await this.makeCall('GET', '/api/game');
     }
 
     async mark(cell) {
@@ -94,7 +103,7 @@ class API {
             throw Error(`Invalid cell type (expected string, got ${typeof cell})`);
         }
 
-        return await this.makeCall('POST', `/dots/${cell}`);
+        return await this.makeCall('POST', `/api/dots/${cell}`);
     }
 
     async clear(cell) {
@@ -104,7 +113,7 @@ class API {
             throw Error(`Invalid cell type (expected string, got ${typeof cell})`);
         }
 
-        return await this.makeCall('DELETE', `/dots/${cell}`);
+        return await this.makeCall('DELETE', `/api/dots/${cell}`);
     }
 }
 

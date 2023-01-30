@@ -37,7 +37,8 @@ class Board {
         return {
             size,
             rows,
-            winners: null
+            winners: null,
+            active: false
         };
     }
 
@@ -101,7 +102,18 @@ class Board {
             }
 
             board.winners = max.players;
+            board.active = false;
         }
+    }
+
+    assertGameActive() {
+        if (!this.isActive()) {
+            throw Error('Game is not active');
+        }
+    }
+
+    isActive() {
+        return this.board.active;
     }
 
     isGameOver() {
@@ -111,6 +123,10 @@ class Board {
     newGame(size) {
         this.players = new Map();
         this.board = this.createBoard(size);
+    }
+
+    start() {
+        this.board.active = true;
     }
 
     getPlayer(ip) {
@@ -163,6 +179,8 @@ class Board {
     }
 
     mark(coordinates, ip) {
+        this.assertGameActive();
+
         const {board} = this;
         const player = this.getPlayer(ip);
         const [row, column] = convertCoordinates(coordinates);
@@ -204,6 +222,8 @@ class Board {
     }
 
     clear(coordinates, ip) {
+        this.assertGameActive();
+
         const {board} = this;
         const player = this.getPlayer(ip);
         const [row, column] = convertCoordinates(coordinates);

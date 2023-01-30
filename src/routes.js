@@ -12,7 +12,7 @@ const BODY = {
 const ROUTES = [
     {
         method: 'POST',
-        path: '/dots/:coordinates',
+        path: '/api/dots/:coordinates',
         description: 'Place a dot (spot must be empty)',
         params: [
             PARAMS.coordinates
@@ -21,7 +21,7 @@ const ROUTES = [
     },
     {
         method: 'DELETE',
-        path: '/dots/:coordinates',
+        path: '/api/dots/:coordinates',
         description: 'Remove a dot (by any player)',
         params: [
             PARAMS.coordinates
