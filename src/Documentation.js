@@ -47,23 +47,22 @@ const Route = ({method, path, description, params, body}) => {
 const Documentation = () => {
     return (
         <aside className="documentation">
-            <div className="content">
-                <div className="routes">
-                    <h3 className="section-title">Routes</h3>
-                    {ROUTES.map(({method, path, description, params, body}) => {
-                        return (<Route key={`${method}${path}`}
-                            method={method}
-                            path={path}
-                            description={description}
-                            params={params}
-                            body={body}/>);
-                    })}
-                </div>
-                <div className="scoring">
-                    <h3 className="section-title">Scoring</h3>
-                    <p>+1 point per dot</p>
-                    <i><strong>Bonus:</strong> +1 extra point for every connected pair (horizontal or vertical)</i>
-                </div>
+            <h3 className="section-title">Routes</h3>
+            <div className="section-content below-header routes">
+                {ROUTES.map(({method, path, description, params, body}) => {
+                    return (<Route key={`${method}${path}`}
+                        method={method}
+                        path={path}
+                        description={description}
+                        params={params}
+                        body={body}/>);
+                })}
+            </div>
+            <div className="flex-spacer"></div>
+            <h3 className="section-title">Scoring</h3>
+            <div className="section-content below-header scoring">
+                <div>+1 point per dot</div>
+                <i><strong>Bonus:</strong> +1 extra point for every connected pair (horizontal or vertical)</i>
             </div>
         </aside>
     );

@@ -66,7 +66,10 @@ section:not(.game), aside {
     background: #f5f5f5;
     border-radius: 10px;
     box-sizing: border-box;
-    padding: 16px;
+}
+
+.flex-spacer {
+    flex-grow: 1;
 }
 
 .light {
@@ -83,6 +86,21 @@ section:not(.game), aside {
     font-weight: normal;
     margin: 0;
     text-align: center;
+    padding: 16px;
+}
+
+.section-content {
+    padding: 16px;
+}
+
+.section-content.below-header {
+    padding-top: 0;
+}
+
+.section-content.scroll {
+    flex-basis: 0px;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .loading {
@@ -193,20 +211,13 @@ section.join button {
 
 aside.documentation {
     display: flex;
-}
-
-aside.documentation .content {
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 16px;
 }
 
-.documentation .routes {
+.documentation .section-content.routes {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow-y: auto;
 }
 
 .route {
@@ -274,6 +285,12 @@ i.description:before {
     content: 'body.';
 }
 
+.documentation .section-content.scoring {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 /* board */
 section.game {
     display: flex;
@@ -334,6 +351,7 @@ section.game:after {
     padding: 4px 8px;
     border-radius: 4px;
     margin: 8px;
+    box-shadow: 1px 1px 0 0px rgba(0, 0, 0, 0.1);
 }
 
 .board {
@@ -365,11 +383,6 @@ section.game:after {
 aside.scoreboard {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-}
-
-.scoreboard .players {
-    overflow-y: auto;
 }
 
 /* command */
@@ -381,7 +394,6 @@ section.command {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding-bottom: 8px;
 }
 
 .command-error {

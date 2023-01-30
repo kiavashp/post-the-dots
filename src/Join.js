@@ -36,7 +36,7 @@ const Join = ({setJoined, joinGame}) => {
     };
 
     return (<section className="join">
-        <form onSubmit={handleJoin}>
+        <form className="section-content" onSubmit={handleJoin}>
             <input
                 type="text"
                 placeholder="username"

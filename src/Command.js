@@ -43,7 +43,24 @@ const Command = ({board, reload}) => {
     const handleCommand = async (event) => {
         event.preventDefault();
 
-        const clean = command.trim().replace(/\s+/, ' ');
+        let clean = command.trim().replace(/\s+/, ' ');
+
+        const adminPrefix = '/admin';
+
+        if (isAdmin && clean.startsWith(adminPrefix)) {
+            let adminCommand = clean.slice(adminPrefix.length).trim();
+
+            switch (adminCommand) {
+                case 'start':
+                    clean = 'POST /api/admin/start';
+                    break;
+                case 'newgame':
+                    clean = 'POST /api/admin/newgame';
+                    break;
+                default:
+                    return setError(`Invalid Admin command: ${adminCommand}`);
+            }
+        }
 
         const [method, path] = clean.split(' ');
 
@@ -57,6 +74,10 @@ const Command = ({board, reload}) => {
 
         if (!path) {
             return setError('Missing url path. Please type a command in the form of "METHOD /path" (e.g. "GET /some/route")');
+        }
+
+        if (!path.startsWith('/api/')) {
+            return setError('Error (404): Route Not Found');
         }
 
         setCommandHistory(prev => [...prev, clean]);
@@ -92,7 +113,7 @@ const Command = ({board, reload}) => {
                 <h3 className="section-title">Commands{isAdmin ? ' (admin)' : ''}</h3>
                 <div className={`command-error ${error ? '' : 'hide'}`}>{error}</div>
             </div>
-            <form onSubmit={handleCommand}>
+            <form className="section-content below-header" onSubmit={handleCommand}>
                 <input className="command-input"
                     disabled={disableCommands}
                     type="text"
@@ -105,7 +126,11 @@ const Command = ({board, reload}) => {
                     }}
                     onKeyDown={handleKeyDown}
                     required={true}
-                    autoComplete="off"/>
+                    autoComplete="off"
+                    onPaste={event => {
+                        event.preventDefault();
+                        setError('No pasting allowed!');
+                    }}/>
                 <button className="command-send"
                     disabled={disableCommands}>Send</button>
             </form>

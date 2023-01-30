@@ -16,7 +16,7 @@ const Scoreboard = ({players}) => {
     return (
         <aside className="scoreboard">
             <h3 className="section-title">Scoreboard</h3>
-            <div className="players">
+            <div className="section-content below-header scroll">
                 {players.map((player, p) => {
                     return (<Player key={p}
                         player={player}
