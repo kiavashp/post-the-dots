@@ -15,7 +15,7 @@ class Board {
         this.board = this.createBoard();
     }
 
-    createBoard(size=10) {
+    createBoard(size) {
         size = Math.min(ALPHABET.length, size || 10);
         const rows = [];
 
@@ -24,6 +24,8 @@ class Board {
 
             for (let c = 0; c < size; c += 1) {
                 row.push({
+                    row: r,
+                    col: c,
                     coordinates: [ALPHABET[r], c.toString()],
                     playedBy: null
                 });
@@ -44,10 +46,32 @@ class Board {
         const cells = board.rows.flat();
 
         const scores = {};
+        const comboCounted = new Set();
+        const matrix = [
+            [-1, 0],
+            [1, 0],
+            [0, -1],
+            [0, 1]
+        ];
 
-        cells.forEach(({playedBy}) => {
+        cells.forEach(({row, col, coordinates, playedBy}) => {
             if (playedBy) {
-                scores[playedBy] = (scores[playedBy] || 0) + 1;
+                if (!scores[playedBy]) {
+                    scores[playedBy] = 0;
+                }
+
+                scores[playedBy] += 1;
+
+                for (let [r, c] of matrix) {
+                    const comboCoordinates = [`${row}${col}`, `${row+r}${col+c}`];
+                    const cellCheck = board.rows && board.rows[row + r] && board.rows[row + r][col + c];
+
+                    if (cellCheck && cellCheck.playedBy === playedBy && !comboCounted.has(comboCoordinates.join(':'))) {
+                        scores[playedBy] += 1;
+                        comboCounted.add(comboCoordinates.join(':'));
+                        comboCounted.add(comboCoordinates.reverse().join(':'));
+                    }
+                }
             }
         });
 
