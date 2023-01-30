@@ -32,7 +32,7 @@ api.get('/game', (request, response, next) => {
 
 // players
 api.get('/players/me', (request, response, next) => {
-    console.log(`request.ips`, request.ips);
+    console.log(`request.ips (ip=${request.ip}):`, request.ips);
     response.send(wrap(null, board.getPlayer(request.ip)));
 });
 
