@@ -1,4 +1,4 @@
-POST /the/dots
+`POST /the/dots`
 ===
 
 A competitive multiplayer game to practice making simple HTTP requests.
